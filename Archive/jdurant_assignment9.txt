@@ -1,0 +1,94 @@
+MariaDB [(none)]> source /Users/jasondurant/Desktop/my_scripts/jdurant_assignment9.sql
+--------------
+/* Assignment 9.sql 
+  Jason Durant
+   CS 150A, Fall 2018
+*/
+
+/* put the database name into this command */
+USE bookstore
+--------------
+
+Query OK, 0 rows affected (0.00 sec)
+
+--------------
+/* Query 0 */
+SELECT user(), current_date()
+--------------
+
++----------------+----------------+
+| user()         | current_date() |
++----------------+----------------+
+| root@localhost | 2018-11-02     |
++----------------+----------------+
+1 row in set (0.00 sec)
+
+--------------
+/* Query 1 */
+SELECT DISTINCT category_name
+FROM category c
+WHERE c.category_id IN (SELECT product.category_id FROM product)
+ORDER BY category_name
+--------------
+
++---------------+
+| category_name |
++---------------+
+| Book          |
+| CD            |
+| Computer      |
+| DVD           |
+| printer       |
+| Video         |
++---------------+
+6 rows in set (0.00 sec)
+
+--------------
+/* Query 2 */
+SELECT product_name
+, list_price 
+FROM product
+WHERE list_price > (SELECT avg(list_price) FROM product)
+ORDER BY list_price DESC
+--------------
+
++------------------------+------------+
+| product_name           | list_price |
++------------------------+------------+
+| HP Envy 750qe Desktop  |    2517.00 |
+| Dell Inspiron 17 5000  |    1415.00 |
+| HP Pavilion 15t Star   |    1299.00 |
+| Lenovo H50 Desktop     |    1199.00 |
+| Dell XPS 8700          |     999.00 |
+| Toshiba Satellite S55T |     989.99 |
+| HP Color LaserJet      |     599.00 |
++------------------------+------------+
+7 rows in set (0.00 sec)
+
+--------------
+/* Query 3 */
+SELECT category.category_name
+FROM category
+WHERE EXISTS (SELECT * FROM product 
+WHERE  product.category_id = category_id)
+--------------
+
++---------------+
+| category_name |
++---------------+
+| Book          |
+| CD            |
+| Computer      |
+| DVD           |
+| printer       |
+| Video         |
++---------------+
+6 rows in set (0.00 sec)
+
+--------------
+/* Query 4 */
+--------------
+
+Query OK, 0 rows affected (0.00 sec)
+
+MariaDB [(none)]> notee

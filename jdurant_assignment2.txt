@@ -1,0 +1,600 @@
+MariaDB [university]> source /Users/jasondurant/Desktop/my_scripts/jdurant_assignment2.sql
+--------------
+/* Assignment 2.sql 
+  Jason Durant
+   CS 150A, Fall 2018
+*/
+
+/* put the database name into this command */
+USE university
+--------------
+
+Query OK, 0 rows affected (0.00 sec)
+
+--------------
+/* Query 0 */
+SELECT user(), current_date()
+--------------
+
++----------------+----------------+
+| user()         | current_date() |
++----------------+----------------+
+| root@localhost | 2018-09-03     |
++----------------+----------------+
+1 row in set (0.01 sec)
+
+--------------
+/* Query 1 */
+SELECT CONCAT(last_name, ',', first_name) AS 'staff names'
+, salary as 'salaries'
+FROM staff
+--------------
+
++-------------------+----------+
+| staff names       | salaries |
++-------------------+----------+
+| Bonnicksen,Joyce  | 60000.00 |
+| Patterson,Maria   | 48000.00 |
+| Hernandez,Michael | 60000.00 |
+| Smith,Sean        | 52000.00 |
+| James,Jack        | 80000.00 |
+| Liley,Mary        | 49000.00 |
+| Bonny,Kean        | 60000.00 |
+| Fareed,Maxwell    | 83000.00 |
+| Wilson,Jim        | 50000.00 |
+| Jackson,Levine    | 56000.00 |
+| Kennedy,Erick     | 56000.00 |
+| Coie,Caroline     | 52000.00 |
+| Abolrous,Sam      | 60000.00 |
+| Cameron,Arias     | 85000.00 |
+| Smith,David       | 52000.00 |
+| Brown,Robert      | 56000.00 |
+| Roan,Waleed       | 73000.00 |
+| Patterson,Ann     | 45000.00 |
+| Jamie,Samy        | 60000.00 |
+| Isaac,Max         | 66000.00 |
+| Sarkar,Alex       | 65000.00 |
+| Glynn,Jim         | 45000.00 |
+| Waldal,Deb        | 44000.00 |
+| Hu,Lary           | 83000.00 |
+| Keyser,Liz        | 48000.00 |
+| DeGrasse,Kirk     | 45000.00 |
+| DeGrasse,Kirk     | 95000.00 |
+| Calvin,Lee        | 78000.00 |
+| Viescas,Suzanne   | 44000.00 |
+| Romero,Liza       | 46000.00 |
+| Patterson,Kathryn | 25000.00 |
+| Morgan,Frankie    | 90000.00 |
+| Oliver,McKinnon   | 45000.00 |
+| Viescas,Carol     | 50000.00 |
+| Smith,Tim         | 40000.00 |
+| Lee,Mo            | 99000.00 |
+| Coie,Caroline     | 52000.00 |
+| Helal,Mahmoud     | 60000.00 |
+| Hallmark,Gary     | 53000.00 |
+| Lane,Maria        | 68000.00 |
+| Brehm,Peter       | 60000.00 |
+| Sergienko,Mariya  | 45000.00 |
+| Viescas,Caleb     | 45000.00 |
+| Mike,Bietzk       | 45000.00 |
+| Ehrlich,Katherine | 45000.00 |
+| Black,Alastair    | 60000.00 |
+| Shannon,Jack      | 49000.00 |
+| Smith,Jeffrey     | 52000.00 |
+| Hallmark,Alaina   | 57000.00 |
+| Rosales III,Joe   | 35000.00 |
+| Patterson,Dale    | 45000.00 |
++-------------------+----------+
+51 rows in set (0.00 sec)
+
+--------------
+/* Query 2 */
+SELECT DISTINCT building
+FROM classroom
+--------------
+
++-----------+
+| building  |
++-----------+
+| Alumni    |
+| Bronfman  |
+| Chandler  |
+| Drown     |
+| Fairchild |
+| Garfield  |
+| Gates     |
+| Grace     |
+| Lambeau   |
+| Lamberton |
+| Main      |
+| Nassau    |
+| Painter   |
+| Polya     |
+| Power     |
+| Rathbone  |
+| Saucon    |
+| Stabler   |
+| Taylor    |
+| Whitman   |
++-----------+
+20 rows in set (0.00 sec)
+
+--------------
+/* Query 3 */
+SELECT *
+FROM section
+WHERE semester = 'Spring' AND year = 2015
+--------------
+
++-----------+--------+----------+------+-----------+-------------+--------------+
+| course_id | sec_id | semester | year | building  | room_number | time_slot_id |
++-----------+--------+----------+------+-----------+-------------+--------------+
+| 581       | 1      | Spring   | 2015 | Alumni    | 547         | G            |
+| 591       | 1      | Spring   | 2015 | Saucon    | 180         | F            |
+| 604       | 1      | Spring   | 2015 | Bronfman  | 700         | N            |
+| 663       | 1      | Spring   | 2015 | Fairchild | 145         | D            |
+| 875       | 1      | Spring   | 2015 | Power     | 717         | P            |
+| 972       | 1      | Spring   | 2015 | Taylor    | 183         | J            |
++-----------+--------+----------+------+-----------+-------------+--------------+
+6 rows in set (0.00 sec)
+
+--------------
+/* Query 4 */
+SELECT course_id AS 'course id'
+, title AS 'title'
+, credits
+FROM course
+WHERE credits = 4
+--------------
+
++-----------+--------------------------------------------------+---------+
+| course id | title                                            | credits |
++-----------+--------------------------------------------------+---------+
+| 133       | Antidisestablishmentarianism in Modern America   |       4 |
+| 139       | Number Theory                                    |       4 |
+| 192       | Drama                                            |       4 |
+| 195       | Numerical Methods                                |       4 |
+| 200       | The Music of the Ramones                         |       4 |
+| 209       | International Trade                              |       4 |
+| 227       | Elastic Structures                               |       4 |
+| 239       | The Music of the Ramones                         |       4 |
+| 265       | Thermal 4                                        |       4 |
+| 267       | Hydraulics                                       |       4 |
+| 270       | Music of the 90s                                 |       4 |
+| 274       | Corporate Law                                    |       4 |
+| 276       | Game Design                                      |       4 |
+| 278       | Greek Tragedy                                    |       4 |
+| 284       | Topology                                         |       4 |
+| 292       | Electron Microscopy                              |       4 |
+| 304       | Music 2 New for your faculty                     |       4 |
+| 319       | World 3                                          |       4 |
+| 344       | Quantum Mechanics                                |       4 |
+| 345       | Race Car Driving                                 |       4 |
+| 349       | Networking                                       |       4 |
+| 352       | Compiler Design                                  |       4 |
+| 359       | Game Programming                                 |       4 |
+| 362       | Embedded Systems                                 |       4 |
+| 376       | Cost 8                                           |       4 |
+| 377       | Differential Geometry                            |       4 |
+| 392       | Recursive Function Theory                        |       4 |
+| 399       | RPG Programming                                  |       4 |
+| 400       | Visual BASIC                                     |       4 |
+| 401       | Sanitary Engineering                             |       4 |
+| 407       | Industrial Organization                          |       4 |
+| 411       | Music of the 80s                                 |       4 |
+| 421       | Aquatic Chemistry                                |       4 |
+| 436       | Stream Processing                                |       4 |
+| 443       | Journalism                                       |       4 |
+| 451       | Database System Concepts                         |       4 |
+| 458       | The Renaissance                                  |       4 |
+| 468       | Fractal Geometry                                 |       4 |
+| 476       | International Communication                      |       4 |
+| 482       | FOCAL Programming                                |       4 |
+| 489       | Journalism                                       |       4 |
+| 494       | Automobile Mechanics                             |       4 |
+| 546       | Creative Writing                                 |       4 |
+| 561       | The Music of Donovan                             |       4 |
+| 571       | Plastics                                         |       4 |
+| 580       | The Music of Dave Edmunds                        |       4 |
+| 581       | Calculus                                         |       4 |
+| 586       | Image Processing                                 |       4 |
+| 591       | Shakespeare                                      |       4 |
+| 598       | Number Theory                                    |       4 |
+| 599       | Mechanics                                        |       4 |
+| 604       | UNIX System Programmming                         |       4 |
+| 618       | Thermodynamics                                   |       4 |
+| 626       | Multimedia Design                                |       4 |
+| 631       | Plasma 4                                         |       4 |
+| 634       | Astronomy                                        |       4 |
+| 647       | Service-Oriented Architectures                   |       4 |
+| 656       | Groups and Rings                                 |       4 |
+| 659       | Geology                                          |       4 |
+| 696       | Heat Transfer                                    |       4 |
+| 704       | Marine Mammals                                   |       4 |
+| 716       | Medieval Civilization or Lack Thereof            |       4 |
+| 730       | Quantum Mechanics                                |       4 |
+| 731       | The Music of Donovan                             |       4 |
+| 747       | International Practicum                          |       4 |
+| 748       | Tort Law                                         |       4 |
+| 762       | The Monkeys                                      |       4 |
+| 769       | Logic                                            |       4 |
+| 774       | Game Programming                                 |       4 |
+| 781       | Compiler Design                                  |       4 |
+| 787       | C  Programming                                   |       4 |
+| 804       | Introduction to Burglary                         |       4 |
+| 805       | Composition and Literature                       |       4 |
+| 808       | Organic Chemistry                                |       4 |
+| 818       | Environmental Law                                |       4 |
+| 830       | Sensor Networks                                  |       4 |
+| 841       | Fractal Geometry                                 |       4 |
+| 843       | Environmental Law                                |       4 |
+| 852       | World 3                                          |       4 |
+| 857       | UNIX System Programmming                         |       4 |
+| 858       | Sailing                                          |       4 |
+| 877       | Composition and Literature                       |       4 |
+| 897       | How to Succeed in Business Without Really Trying |       4 |
+| 898       | Petroleum Engineering                            |       4 |
+| 922       | Microeconomics                                   |       4 |
+| 927       | Differential Geometry                            |       4 |
+| 959       | Bacteriology                                     |       4 |
+| 963       | Groups and Rings                                 |       4 |
+| 969       | The Monkeys                                      |       4 |
+| 972       | Greek Tragedy                                    |       4 |
+| 983       | Virology                                         |       4 |
+| 998       | Immunology                                       |       4 |
++-----------+--------------------------------------------------+---------+
+92 rows in set (0.00 sec)
+
+--------------
+/* Query 5 */
+SELECT CONCAT(last_name, ',', first_name) AS 'staff names'
+FROM staff
+ORDER BY date_hired DESC
+LIMIT 10
+--------------
+
++------------------+
+| staff names      |
++------------------+
+| Viescas,Caleb    |
+| Sarkar,Alex      |
+| Liley,Mary       |
+| Sergienko,Mariya |
+| Black,Alastair   |
+| Oliver,McKinnon  |
+| DeGrasse,Kirk    |
+| Brown,Robert     |
+| Jackson,Levine   |
+| Viescas,Suzanne  |
++------------------+
+10 rows in set (0.00 sec)
+
+--------------
+/* Query 6 */
+SELECT faculty_id AS 'falcuty id'
+, dept_id as 'dept id'
+, Title as title
+FROM Faculty
+WHERE faculty_id != 78699
+--------------
+
++------------+---------+---------------------+
+| falcuty id | dept id | title               |
++------------+---------+---------------------+
+| 14365      | 18      | Instructor          |
+| 15347      | 3       | Instructor          |
+| 16807      | 12      | Professor           |
+| 19368      | 6       | Professor           |
+| 22591      | 17      | Instructor          |
+| 25946      | 10      | Instructor          |
+| 28097      | 7       | Instructor          |
+| 28400      | 16      | Instructor          |
+| 31955      | 10      | Associate Professor |
+| 3199       | 19      | Professor           |
+| 3335       | 1       | Instructor          |
+| 34175      | 9       | Instructor          |
+| 35579      | 5       | Professor           |
+| 36897      | 5       | Professor           |
+| 37687      | 11      | Associate Professor |
+| 4034       | 3       | Instructor          |
+| 41930      | 15      | Associate Professor |
+| 4233       | 18      | Instructor          |
+| 43779      | 14      | Instructor          |
+| 48507      | 3       | Instructor          |
+| 48570      | 3       | Instructor          |
+| 50330      | 1       | Instructor          |
+| 50885      | 6       | Instructor          |
+| 52647      | 9       | Professor           |
+| 57180      | 9       | Instructor          |
+| 58558      | 14      | Instructor          |
+| 59795      | 2       | Associate Professor |
+| 63287      | 15      | Associate Professor |
+| 63395      | 1       | Instructor          |
+| 64871      | 1       | Instructor          |
+| 6569       | 11      | Professor           |
+| 65931      | 13      | Associate Professor |
+| 72553      | 6       | Instructor          |
+| 73623      | 2       | Associate Professor |
+| 74420      | 11      | Professor           |
+| 74426      | 6       | Associate Professor |
+| 77346      | 12      | Associate Professor |
+| 79081      | 8       | Professor           |
+| 79653      | 7       | Professor           |
+| 80759      | 2       | Instructor          |
+| 81991      | 2       | Professor           |
+| 90376      | 13      | Instructor          |
+| 90643      | 18      | Instructor          |
+| 95030      | 4       | Instructor          |
+| 95709      | 18      | Professor           |
+| 96895      | 5       | Associate Professor |
+| 97302      | 3       | Professor           |
+| 99052      | 13      | Professor           |
++------------+---------+---------------------+
+48 rows in set (0.00 sec)
+
+--------------
+/* Query 7 */
+SELECT first_name AS 'first name'
+, last_name AS 'last name'
+, tot_cred AS 'total credits'
+FROM student
+ORDER BY tot_cred DESC
+
+/* Query 8 */
+SELECT dept_id AS 'department id'
+, dept_name AS 'department name'
+, budget 
+FROM dept
+--------------
+
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'SELECT dept_id AS 'department id'
+, dept_name AS 'department name'
+, budget 
+FRO' at line 9
+--------------
+/* Query 9 */
+SELECT staff_id AS 'staff id'
+, address
+, CONCAT(city, ',', state) AS 'city state'
+, zip_code AS zipcode
+FROM staff
+--------------
+
++----------+-------------------------+-----------------+---------+
+| staff id | address                 | city state      | zipcode |
++----------+-------------------------+-----------------+---------+
+| 14365    | 2424 Thames Drive       | Bellevue,WA     | 98006   |
+| 15347    | 3445 Cheyenne Road      | El Paso,TX      | 79993   |
+| 16807    | PO Box 223311           | Tacoma,WA       | 98413   |
+| 19368    | 2314 Foothill Ave.      | Fremont,CA      | 94538   |
+| 22591    | 234 Thames Drive        | Bellevue,CA     | 94006   |
+| 25946    | 901 Pine Avenue         | San Mateo,CA    | 97208   |
+| 28097    | 2423 Thames Drive       | Newark,CA       | 94006   |
+| 28400    | 15127 NE 24th, #383     | Hayward,CA      | 94552   |
+| 31955    | 101 NE 88th             | Salem,OR        | 97301   |
+| 3199     | 323 Cheyenne Ave        | Union City,CA   | 94993   |
+| 3335     | 455 East Palm Ave       | San Antonio,CA  | 94284   |
+| 34175    | 298 Forest Lane         | Seattle,WA      | 98125   |
+| 35579    | 611 Alpine Drive        | Palm Springs,CA | 92263   |
+| 36897    | 13920 S.E. 40th Street  | Hayward,CA      | 98009   |
+| 37687    | 311 20th Ave. N.E.      | Fremont,CA      | 94538   |
+| 4034     | 672 Lamont Ave          | Houston,TX      | 77201   |
+| 41930    | 342 Edgewater Blvd      | Fremont,CA      | 98002   |
+| 4233     | 16 Maple Lane           | Auburn,WA       | 98002   |
+| 43779    | 699 Alpine Drive        | Fremont,CA      | 94263   |
+| 48507    | 5432 Cheyenne Road      | El Paso,TX      | 79993   |
+| 48570    | 4444 Welsh Road         | Long Beach,CA   | 90809   |
+| 50330    | 13920 S.E. 40th Street  | Bellevue,WA     | 98009   |
+| 50885    | 908 W. Capital Way      | Tacoma,WA       | 98413   |
+| 52647    | 45127 NE, #383          | Fremont,CA      | 94552   |
+| 57180    | 13920 S.E. 40th Street  | Bellevue,WA     | 98006   |
+| 58558    | 455 West Palm Ave       | San Antonio,TX  | 78284   |
+| 59795    | 333 West Palm Ave       | San Antonio,CA  | 94284   |
+| 63287    | 833 14th Ave SE         | Haywrd,CA       | 94208   |
+| 63395    | 15127 NE 24th, #383     | Redmond,WA      | 98052   |
+| 64871    | 13920 S.E. 46th Street  | Bellevue,CA     | 94506   |
+| 6569     | 16 Maple Lane           | Seattle,WA      | 98115   |
+| 65931    | 298 Forest Lane         | Hayward,CA      | 94125   |
+| 72553    | 7299 Barrister Ave      | Fremont,CA      | 98413   |
+| 73623    | 722 Moss Bay Blvd.      | Kirkland,WA     | 98033   |
+| 73644    | 30301 - 166th Ave. N.E. | Seattle,WA      | 98106   |
+| 74420    | 833 13th street         | Haywrd,CA       | 94208   |
+| 74426    | 298 Forest Lane         | Seattle,WA      | 98125   |
+| 77346    | PO Box 2223             | Dublin,CA       | 90413   |
+| 78699    | Route 2, Box 203B       | Auburn,WA       | 98002   |
+| 79081    | 3321 Clever Road        | El Paso,CA      | 79993   |
+| 79653    | 722 Moss Bay Blvd.      | Kirkland,WA     | 98033   |
+| 80759    | 901 Pine Avenue         | Portland,OR     | 97208   |
+| 81991    | 4501 Wetland Road       | Long Beach,CA   | 90809   |
+| 90376    | 453 Fenexet Blvd        | Richmond,CA     | 94352   |
+| 90643    | 777 Fenexet Blvd        | Redmond,WA      | 98052   |
+| 95030    | 3887 Easy Street        | Seattle,WA      | 98125   |
+| 95709    | 101 NE 32th             | Hayward,CA      | 97301   |
+| 96895    | 30301 - 166th Ave. N.E. | Fremont,CA      | 94538   |
+| 97302    | Route 2, Box 203B       | Woodinville,WA  | 98072   |
+| 98057    | 7288 Barrister Ave N    | Tacoma,WA       | 98413   |
+| 99052    | 16 Maple Lane           | Union City,CA   | 98002   |
++----------+-------------------------+-----------------+---------+
+51 rows in set (0.00 sec)
+
+--------------
+/*  Query 10 */
+SELECT staff_id AS 'staff id'
+, last_name AS 'last name'
+, salary
+FROM staff
+WHERE salary < 70000
+--------------
+
++----------+-------------+----------+
+| staff id | last name   | salary   |
++----------+-------------+----------+
+| 14365    | Bonnicksen  | 60000.00 |
+| 15347    | Patterson   | 48000.00 |
+| 16807    | Hernandez   | 60000.00 |
+| 19368    | Smith       | 52000.00 |
+| 25946    | Liley       | 49000.00 |
+| 28097    | Bonny       | 60000.00 |
+| 31955    | Wilson      | 50000.00 |
+| 3199     | Jackson     | 56000.00 |
+| 3335     | Kennedy     | 56000.00 |
+| 34175    | Coie        | 52000.00 |
+| 35579    | Abolrous    | 60000.00 |
+| 37687    | Smith       | 52000.00 |
+| 4034     | Brown       | 56000.00 |
+| 4233     | Patterson   | 45000.00 |
+| 43779    | Jamie       | 60000.00 |
+| 48507    | Isaac       | 66000.00 |
+| 48570    | Sarkar      | 65000.00 |
+| 50330    | Glynn       | 45000.00 |
+| 50885    | Waldal      | 44000.00 |
+| 57180    | Keyser      | 48000.00 |
+| 58558    | DeGrasse    | 45000.00 |
+| 63395    | Viescas     | 44000.00 |
+| 64871    | Romero      | 46000.00 |
+| 6569     | Patterson   | 25000.00 |
+| 72553    | Oliver      | 45000.00 |
+| 73623    | Viescas     | 50000.00 |
+| 73644    | Smith       | 40000.00 |
+| 74426    | Coie        | 52000.00 |
+| 77346    | Helal       | 60000.00 |
+| 78699    | Hallmark    | 53000.00 |
+| 79081    | Lane        | 68000.00 |
+| 79653    | Brehm       | 60000.00 |
+| 80759    | Sergienko   | 45000.00 |
+| 81991    | Viescas     | 45000.00 |
+| 90376    | Mike        | 45000.00 |
+| 90643    | Ehrlich     | 45000.00 |
+| 95030    | Black       | 60000.00 |
+| 95709    | Shannon     | 49000.00 |
+| 96895    | Smith       | 52000.00 |
+| 97302    | Hallmark    | 57000.00 |
+| 98057    | Rosales III | 35000.00 |
+| 99052    | Patterson   | 45000.00 |
++----------+-------------+----------+
+42 rows in set (0.00 sec)
+
+--------------
+/* Query 11 */
+SELECT DISTINCT(co.title) AS 'course title'
+FROM section AS sec
+JOIN course AS co ON sec.course_id = co.course_id
+--------------
+
++-------------------------------+
+| course title                  |
++-------------------------------+
+| Optics                        |
+| Embedded Systems              |
+| Bio16                         |
+| Calculus                      |
+| UNIX System Programmming      |
+| Image Processing              |
+| The Music of the Ramones      |
+| International Trade           |
+| Mechanics                     |
+| Marine Mammals                |
+| International Communication   |
+| Greek Tragedy                 |
+| Manufacturing                 |
+| Surfing                       |
+| Rock and Roll                 |
+| Graph Theory                  |
+| Geology                       |
+| Environmental Law             |
+| Systems Software              |
+| How to Groom your Cat         |
+| International Practicum       |
+| Aquatic Chemistry             |
+| Journalism                    |
+| World 3                       |
+| Compiler Design               |
+| Visual BASIC                  |
+| Fractal Geometry              |
+| Numerical Methods             |
+| Video Gaming                  |
+| Music of the 50s              |
+| Martian 3                     |
+| The IBM 360 Architecture      |
+| Tort Law                      |
+| Transaction Processing        |
+| Music 2 New for your faculty  |
+| Mobile Computing              |
+| Multimedia Design             |
+| Death and Taxes               |
+| Corporate Law                 |
+| Physical Chemistry            |
+| Colloid and Surface Chemistry |
+| The Music of Donovan          |
+| Decison Support Systems       |
+| Animal Behavior               |
+| Drama                         |
+| Operating Systems             |
+| Organic Chemistry             |
+| Astronautics                  |
+| Music of the 90s              |
+| Cost 8                        |
+| Bioinformatics                |
+| Plastics                      |
+| Heat Transfer                 |
+| Networking                    |
+| Graphics                      |
+| Arabic                        |
+| African 3                     |
+| Sanitary Engineering          |
+| Shakespeare                   |
+| Differential Geometry         |
+| Japanese                      |
+| Bacteriology                  |
+| Computational 2               |
+| The Beatles                   |
+| Finite Element Analysis       |
+| Race Car Driving              |
+| Bankruptcy                    |
+| Plasma 4                      |
+| Cat Herding                   |
+| Elastic Structures            |
+| Care and Feeding of Cats      |
+| Accounting                    |
+| FOCAL Programming             |
++-------------------------------+
+73 rows in set (0.00 sec)
+
+--------------
+/* Query 12 */
+SELECT student_id AS 'student id'
+, sec_id AS 'section id'
+, semester
+, year
+FROM registration
+ORDER BY year DESC
+LIMIT 20
+--------------
+
++------------+------------+----------+------+
+| student id | section id | semester | year |
++------------+------------+----------+------+
+| 14182      | 1          | Fall     | 2017 |
+| 19791      | 1          | Spring   | 2017 |
+| 21395      | 1          | Fall     | 2017 |
+| 14554      | 1          | Fall     | 2017 |
+| 14182      | 1          | Spring   | 2017 |
+| 19791      | 1          | Fall     | 2017 |
+| 21126      | 1          | Fall     | 2017 |
+| 14182      | 1          | Spring   | 2017 |
+| 14554      | 1          | Fall     | 2017 |
+| 14554      | 1          | Spring   | 2017 |
+| 14554      | 1          | Spring   | 2017 |
+| 14182      | 1          | Spring   | 2017 |
+| 14182      | 2          | Spring   | 2017 |
+| 17769      | 1          | Fall     | 2017 |
+| 14182      | 1          | Spring   | 2017 |
+| 21126      | 1          | Spring   | 2017 |
+| 17769      | 1          | Spring   | 2017 |
+| 14554      | 2          | Fall     | 2017 |
+| 14554      | 1          | Spring   | 2017 |
+| 14554      | 1          | Spring   | 2017 |
++------------+------------+----------+------+
+20 rows in set (0.00 sec)
+
+MariaDB [university]> notee

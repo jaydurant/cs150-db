@@ -1,0 +1,330 @@
+
+MariaDB [(none)]> source /Users/jasondurant/Desktop/my_scripts/jdurant_assignment7.sql
+--------------
+/* Assignment 7.sql 
+  Jason Durant
+   CS 150A, Fall 2018
+*/
+
+/* put the database name into this command */
+USE bookstore
+--------------
+
+Query OK, 0 rows affected (0.00 sec)
+
+--------------
+/* Query 0 */
+SELECT user(), current_date()
+--------------
+
++----------------+----------------+
+| user()         | current_date() |
++----------------+----------------+
+| root@localhost | 2018-10-09     |
++----------------+----------------+
+1 row in set (0.00 sec)
+
+--------------
+/* Query 1 */
+
+SELECT  category.category_name
+, product.product_name
+, product.list_price
+FROM category
+LEFT JOIN product ON  category.category_id = product.category_id
+ORDER BY category.category_name ASC, product.product_name ASC
+--------------
+
++---------------+------------------------+------------+
+| category_name | product_name           | list_price |
++---------------+------------------------+------------+
+| Book          | Chemistry              |      30.00 |
+| Book          | Modern Science         |      19.95 |
+| CD            | Classical Music        |      99.99 |
+| CD            | Pop 3                  |      49.99 |
+| Computer      | Dell Inspiron 17 5000  |    1415.00 |
+| Computer      | Dell XPS 8700          |     999.00 |
+| Computer      | HP Envy 750qe Desktop  |    2517.00 |
+| Computer      | HP Pavilion 15t Star   |    1299.00 |
+| Computer      | Lenovo H50 Desktop     |    1199.00 |
+| Computer      | Toshiba Satellite S55T |     989.99 |
+| DVD           | From Another Planet    |      49.99 |
+| DVD           | Space Force 9          |      13.95 |
+| DVD           | Supernova              |      25.99 |
+| printer       | HP Color LaserJet      |     599.00 |
+| printer       | HP LaserJet Pro        |     200.99 |
+| printer       | HP LaserJet Pro        |     500.99 |
+| Video         | 2412: The Return       |      14.99 |
+| Video         | Z Files                |      49.99 |
++---------------+------------------------+------------+
+18 rows in set (0.00 sec)
+
+--------------
+/* Query 2 */
+SELECT customer.first_name
+, customer.last_name
+, address.line1
+, address.city
+, address.state
+, address.zip_code 
+FROM customer
+LEFT JOIN address ON customer.customer_id = address.customer_id
+WHERE email_address = 'allan.sherwood@yahoo.com'
+--------------
+
++------------+-----------+-------------------------+----------------+-------+----------+
+| first_name | last_name | line1                   | city           | state | zip_code |
++------------+-----------+-------------------------+----------------+-------+----------+
+| Allan      | Sherwood  | 100 East Ridgewood Ave. | Paramus        | NJ    | 07652    |
+| Allan      | Sherwood  | 21 Rosewood Rd.         | Woodcliff Lake | NJ    | 07677    |
++------------+-----------+-------------------------+----------------+-------+----------+
+2 rows in set (0.00 sec)
+
+--------------
+/* Query 3 */
+SELECT customer.first_name
+, customer.last_name
+, address.line1
+, address.city
+, address.state
+, address.zip_code 
+FROM customer
+LEFT JOIN address ON customer.shipping_address_id = address.address_id
+WHERE customer.shipping_address_id IS NOT NULL
+--------------
+
++------------+-----------+-------------------------+---------------+-------+----------+
+| first_name | last_name | line1                   | city          | state | zip_code |
++------------+-----------+-------------------------+---------------+-------+----------+
+| Allan      | Sherwood  | 100 East Ridgewood Ave. | Paramus       | NJ    | 07652    |
+| Barry      | Zimmer    | 16285 Wendell St.       | Omaha         | NE    | 68135    |
+| Christine  | Brown     | 19270 NW Cornell Rd.    | Beaverton     | OR    | 97006    |
+| David      | Goldstein | 186 Vermont St.         | San Francisco | CA    | 94110    |
+| Erin       | Valentino | 6982 Palm Ave.          | Fresno        | CA    | 93711    |
+| Frank Lee  | Wilson    | 23 Mountain View St.    | Denver        | CO    | 80208    |
+| Gary       | Hernandez | 7361 N. 41st St.        | New York      | NY    | 10012    |
+| Heather    | Esway     | 2381 Buena Vista St.    | Los Angeles   | CA    | 90023    |
++------------+-----------+-------------------------+---------------+-------+----------+
+8 rows in set (0.00 sec)
+
+--------------
+/* Query 4 */
+SELECT customer.last_name
+, customer.first_name
+, orders.order_date
+, product.product_name
+, orderitems.item_price
+, orderitems.quantity
+FROM customer
+JOIN orders ON customer.customer_id = orders.customer_id
+JOIN orderitems ON orders.order_id = orderitems.order_id
+JOIN product ON orderitems.product_id = product.product_id
+ORDER BY customer.last_name ASC, orders.order_date ASC
+--------------
+
++-----------+------------+---------------------+------------------------+------------+----------+
+| last_name | first_name | order_date          | product_name           | item_price | quantity |
++-----------+------------+---------------------+------------------------+------------+----------+
+| Brown     | Christine  | 2015-03-30 15:22:31 | Lenovo H50 Desktop     |    1199.00 |        2 |
+| Brown     | Christine  | 2015-03-30 15:22:31 | Space Force 9          |      13.95 |        1 |
+| Goldstein | David      | 2015-04-03 12:22:31 | Dell XPS 8700          |     999.00 |        1 |
+| Goldstein | David      | 2015-04-03 12:22:31 | From Another Planet    |      49.99 |        1 |
+| Hernandez | Gary       | 2015-04-02 11:26:38 | Z Files                |      49.99 |        1 |
+| Sherwood  | Allan      | 2015-03-28 09:40:28 | Lenovo H50 Desktop     |    1199.00 |        1 |
+| Sherwood  | Allan      | 2015-03-28 09:40:28 | Z Files                |      49.99 |        2 |
+| Sherwood  | Allan      | 2015-03-29 09:44:58 | HP Envy 750qe Desktop  |    2517.00 |        1 |
+| Sherwood  | Allan      | 2015-03-29 09:44:58 | Dell XPS 8700          |     999.00 |        1 |
+| Sherwood  | Allan      | 2015-03-29 09:44:58 | HP Pavilion 15t Star   |    1299.00 |        1 |
+| Valentino | Erin       | 2015-03-31 18:37:22 | HP Pavilion 15t Star   |    1299.00 |        1 |
+| Wilson    | Frank Lee  | 2015-04-01 23:11:12 | Dell XPS 8700          |     999.00 |        1 |
+| Wilson    | Frank Lee  | 2015-04-01 23:11:12 | Classical Music        |      99.99 |        1 |
+| Wilson    | Frank Lee  | 2015-04-01 23:11:12 | 2412: The Return       |      14.99 |        1 |
+| Wilson    | Frank Lee  | 2015-04-01 23:11:12 | HP LaserJet Pro        |     500.99 |        1 |
+| Zimmer    | Barry      | 2015-03-28 11:23:20 | Toshiba Satellite S55T |     989.99 |        1 |
+| Zimmer    | Barry      | 2015-03-28 11:23:20 | Modern Science         |      19.95 |        1 |
+| Zimmer    | Barry      | 2015-03-28 11:23:20 | Dell Inspiron 17 5000  |    1415.00 |        1 |
+| Zimmer    | Barry      | 2015-05-03 12:22:31 | Supernova              |      25.99 |        1 |
+| Zimmer    | Barry      | 2015-05-03 12:22:31 | HP Color LaserJet      |     599.00 |        1 |
+| Zimmer    | Barry      | 2015-06-03 12:22:31 | HP LaserJet Pro        |     200.99 |        1 |
++-----------+------------+---------------------+------------------------+------------+----------+
+21 rows in set (0.00 sec)
+
+--------------
+/* Query 5 */
+SELECT DISTINCT(p1.product_name)
+, p1.list_price  
+FROM product p1, product p2
+WHERE p1.product_id != p2.product_id AND p1.list_price = p2.list_price
+ORDER BY p1.product_name ASC
+--------------
+
++---------------------+------------+
+| product_name        | list_price |
++---------------------+------------+
+| From Another Planet |      49.99 |
+| Pop 3               |      49.99 |
+| Z Files             |      49.99 |
++---------------------+------------+
+3 rows in set (0.00 sec)
+
+--------------
+/* Query 6 */
+SELECT product.product_id
+, product.product_name
+, product.list_price
+, vendor.company_name AS vendor_name
+, category.category_name
+FROM product
+JOIN category ON category.category_id = product.category_id
+JOIN vendor ON vendor.vendor_id = product.vendor_id
+ORDER BY product.product_id DESC
+--------------
+
++------------+------------------------+------------+-----------------------+---------------+
+| product_id | product_name           | list_price | vendor_name           | category_name |
++------------+------------------------+------------+-----------------------+---------------+
+|      19234 | HP LaserJet Pro        |     500.99 | HP Products           | printer       |
+|      18234 | HP LaserJet Pro        |     200.99 | HP Products           | printer       |
+|      16234 | HP Color LaserJet      |     599.00 | HP Products           | printer       |
+|      15234 | Supernova              |      25.99 | HP Products           | DVD           |
+|      14234 | From Another Planet    |      49.99 | Harely Benton         | DVD           |
+|      13234 | Space Force 9          |      13.95 | Harely Benton         | DVD           |
+|      12234 | Chemistry              |      30.00 | HP Products           | Book          |
+|      11234 | Modern Science         |      19.95 | HP Products           | Book          |
+|      10234 | Z Files                |      49.99 | Foundation of America | Video         |
+|       9234 | 2412: The Return       |      14.99 | HP Products           | Video         |
+|       8234 | Pop 3                  |      49.99 | HP Products           | CD            |
+|       7234 | Classical Music        |      99.99 | Foundation of America | CD            |
+|       6234 | Dell Inspiron 17 5000  |    1415.00 | Computer Group        | Computer      |
+|       5234 | HP Pavilion 15t Star   |    1299.00 | Foundation of America | Computer      |
+|       4234 | Toshiba Satellite S55T |     989.99 | Computer Group        | Computer      |
+|       3234 | HP Envy 750qe Desktop  |    2517.00 | Computer Group        | Computer      |
+|       2234 | Lenovo H50 Desktop     |    1199.00 | Computer Group        | Computer      |
+|       1234 | Dell XPS 8700          |     999.00 | Computer Group        | Computer      |
++------------+------------------------+------------+-----------------------+---------------+
+18 rows in set (0.00 sec)
+
+--------------
+/* Query 7 */
+SELECT product.product_id
+, product.product_name
+, product.list_price
+, category.category_name
+FROM product
+JOIN category ON category.category_id = product.category_id
+WHERE category.category_name = 'Computer'
+ORDER BY product.product_id DESC
+--------------
+
++------------+------------------------+------------+---------------+
+| product_id | product_name           | list_price | category_name |
++------------+------------------------+------------+---------------+
+|       6234 | Dell Inspiron 17 5000  |    1415.00 | Computer      |
+|       5234 | HP Pavilion 15t Star   |    1299.00 | Computer      |
+|       4234 | Toshiba Satellite S55T |     989.99 | Computer      |
+|       3234 | HP Envy 750qe Desktop  |    2517.00 | Computer      |
+|       2234 | Lenovo H50 Desktop     |    1199.00 | Computer      |
+|       1234 | Dell XPS 8700          |     999.00 | Computer      |
++------------+------------------------+------------+---------------+
+6 rows in set (0.00 sec)
+
+--------------
+/* Query 8 */
+SELECT orders.order_id
+, orders.order_date
+, product.product_name
+, orderitems.quantity
+, orderitems.quantity * product.list_price AS amount
+FROM orders
+LEFT JOIN orderitems ON orderitems.order_id = orders.order_id
+LEFT JOIN product  ON orderitems.product_id = product.product_id
+--------------
+
++----------+---------------------+------------------------+----------+---------+
+| order_id | order_date          | product_name           | quantity | amount  |
++----------+---------------------+------------------------+----------+---------+
+|        1 | 2015-03-28 09:40:28 | Lenovo H50 Desktop     |        1 | 1199.00 |
+|        1 | 2015-03-28 09:40:28 | Z Files                |        2 |   99.98 |
+|        2 | 2015-03-28 11:23:20 | Toshiba Satellite S55T |        1 |  989.99 |
+|        2 | 2015-03-28 11:23:20 | Modern Science         |        1 |   19.95 |
+|        2 | 2015-03-28 11:23:20 | Dell Inspiron 17 5000  |        1 | 1415.00 |
+|        3 | 2015-03-29 09:44:58 | HP Envy 750qe Desktop  |        1 | 2517.00 |
+|        3 | 2015-03-29 09:44:58 | Dell XPS 8700          |        1 |  999.00 |
+|        3 | 2015-03-29 09:44:58 | HP Pavilion 15t Star   |        1 | 1299.00 |
+|        4 | 2015-03-30 15:22:31 | Lenovo H50 Desktop     |        2 | 2398.00 |
+|        4 | 2015-03-30 15:22:31 | Space Force 9          |        1 |   13.95 |
+|        6 | 2015-03-31 18:37:22 | HP Pavilion 15t Star   |        1 | 1299.00 |
+|        7 | 2015-04-01 23:11:12 | Dell XPS 8700          |        1 |  999.00 |
+|        7 | 2015-04-01 23:11:12 | Classical Music        |        1 |   99.99 |
+|        7 | 2015-04-01 23:11:12 | 2412: The Return       |        1 |   14.99 |
+|        7 | 2015-04-01 23:11:12 | HP LaserJet Pro        |        1 |  500.99 |
+|        8 | 2015-04-02 11:26:38 | Z Files                |        1 |   49.99 |
+|        9 | 2015-04-03 12:22:31 | Dell XPS 8700          |        1 |  999.00 |
+|        9 | 2015-04-03 12:22:31 | From Another Planet    |        1 |   49.99 |
+|       10 | 2015-05-03 12:22:31 | Supernova              |        1 |   25.99 |
+|       10 | 2015-05-03 12:22:31 | HP Color LaserJet      |        1 |  599.00 |
+|       11 | 2015-06-03 12:22:31 | HP LaserJet Pro        |        1 |  200.99 |
++----------+---------------------+------------------------+----------+---------+
+21 rows in set (0.00 sec)
+
+--------------
+/* Query 9 */
+SELECT customer.first_name
+, customer.last_name
+, orders.order_id
+, orders.order_date
+, orders.ship_date 
+FROM orders
+LEFT JOIN customer ON orders.customer_id = customer.customer_id
+WHERE ship_date IS NULL
+--------------
+
++------------+-----------+----------+---------------------+-----------+
+| first_name | last_name | order_id | order_date          | ship_date |
++------------+-----------+----------+---------------------+-----------+
+| Erin       | Valentino |        6 | 2015-03-31 18:37:22 | NULL      |
+| Gary       | Hernandez |        8 | 2015-04-02 11:26:38 | NULL      |
+| David      | Goldstein |        9 | 2015-04-03 12:22:31 | NULL      |
+| Barry      | Zimmer    |       10 | 2015-05-03 12:22:31 | NULL      |
+| Barry      | Zimmer    |       11 | 2015-06-03 12:22:31 | NULL      |
++------------+-----------+----------+---------------------+-----------+
+5 rows in set (0.00 sec)
+
+--------------
+/* Query 10 */
+SELECT customer.last_name
+, customer.first_name
+FROM orders
+LEFT JOIN customer ON orders.customer_id = customer.customer_id
+LEFT JOIN orderitems ON orders.order_id = orderitems.order_id
+LEFT JOIN product ON orderitems.product_id = product.product_id
+WHERE product.list_price > 1500
+--------------
+
++-----------+------------+
+| last_name | first_name |
++-----------+------------+
+| Sherwood  | Allan      |
++-----------+------------+
+1 row in set (0.00 sec)
+
+--------------
+/* Query 11 */
+SELECT product.product_name
+,product.product_id 
+FROM customer
+LEFT JOIN orders on orders.customer_id = customer.customer_id
+LEFT JOIN orderitems on orders.order_id = orderitems.order_id
+LEFT JOIN product on product.product_id  = orderitems.product_id
+WHERE customer.first_name = 'Christine' and customer.last_name = 'Brown'
+--------------
+
++---------------------+------------+
+| product_name        | product_id |
++---------------------+------------+
+| Lenovo H50 Desktop  |       2234 |
+| Space Force 9       |      13234 |
++---------------------+------------+
+2 rows in set (0.00 sec)
+
+MariaDB [(none)]> notee

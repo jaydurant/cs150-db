@@ -1,0 +1,224 @@
+MariaDB [(none)]> source /Users/jasondurant/Desktop/my_scripts/jdurant_assignment4.sql
+--------------
+/* Assignment 4.sql 
+  Jason Durant
+   CS 150A, Fall 2018
+*/
+
+/* put the database name into this command */
+USE library
+--------------
+
+Query OK, 0 rows affected (0.00 sec)
+
+--------------
+/* Query 0 */
+SELECT user(), current_date()
+--------------
+
++----------------+----------------+
+| user()         | current_date() |
++----------------+----------------+
+| root@localhost | 2018-09-14     |
++----------------+----------------+
+1 row in set (0.00 sec)
+
+--------------
+/* Query 1 */
+CREATE TABLE COMPUTER (
+    serial_number INT(7),
+    make VARCHAR(50),
+    model VARCHAR(50),
+    processor_type VARCHAR(50),
+    memory_type VARCHAR(50),
+    disk_size VARCHAR(50),
+    PRIMARY KEY (serial_number)
+)Engine = INNODB
+--------------
+
+Query OK, 0 rows affected (0.01 sec)
+
+--------------
+DESC COMPUTER
+--------------
+
++----------------+-------------+------+-----+---------+-------+
+| Field          | Type        | Null | Key | Default | Extra |
++----------------+-------------+------+-----+---------+-------+
+| serial_number  | int(7)      | NO   | PRI | NULL    |       |
+| make           | varchar(50) | YES  |     | NULL    |       |
+| model          | varchar(50) | YES  |     | NULL    |       |
+| processor_type | varchar(50) | YES  |     | NULL    |       |
+| memory_type    | varchar(50) | YES  |     | NULL    |       |
+| disk_size      | varchar(50) | YES  |     | NULL    |       |
++----------------+-------------+------+-----+---------+-------+
+6 rows in set (0.01 sec)
+
+--------------
+/* Query 2 */
+INSERT INTO COMPUTER VALUES(
+ 9871234, 'HP', 'Pavilion 500-210qe', 'Intel i5-4530',
+ '6.0 GBytes', '1.0 TBytes')
+--------------
+
+Query OK, 1 row affected (0.00 sec)
+
+--------------
+INSERT INTO COMPUTER VALUES(
+ 9871245, 'HP', 'Pavilion 500-210qe', 'Intel i5-4530',
+ '6.0 GBytes', '1.0 TBytes')
+--------------
+
+Query OK, 1 row affected (0.00 sec)
+
+--------------
+INSERT INTO COMPUTER VALUES(
+ 9871256, 'HP', 'Pavilion 500-210qe', 'Intel i5-4530',
+ '6.0 GBytes', '1.0 TBytes')
+--------------
+
+Query OK, 1 row affected (0.00 sec)
+
+--------------
+INSERT INTO COMPUTER VALUES(
+ 9871267, 'HP', 'Pavilion 500-210qe', 'Intel i5-4530',
+ '6.0 GBytes', '1.0 TBytes')
+--------------
+
+Query OK, 1 row affected (0.00 sec)
+
+--------------
+INSERT INTO COMPUTER VALUES(
+ 9871278, 'HP', 'Pavilion 500-210qe', 'Intel i5-4530',
+ '6.0 GBytes', '1.0 TBytes')
+--------------
+
+Query OK, 1 row affected (0.00 sec)
+
+--------------
+ /* Query 3 */
+ ALTER TABLE COMPUTER
+ ADD processor_speed DECIMAL(5,2)
+--------------
+
+Query OK, 0 rows affected (0.01 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+--------------
+ /* Query 4 */
+ SELECT *
+ FROM COMPUTER
+--------------
+
++---------------+------+--------------------+----------------+-------------+------------+-----------------+
+| serial_number | make | model              | processor_type | memory_type | disk_size  | processor_speed |
++---------------+------+--------------------+----------------+-------------+------------+-----------------+
+|       9871234 | HP   | Pavilion 500-210qe | Intel i5-4530  | 6.0 GBytes  | 1.0 TBytes |            NULL |
+|       9871245 | HP   | Pavilion 500-210qe | Intel i5-4530  | 6.0 GBytes  | 1.0 TBytes |            NULL |
+|       9871256 | HP   | Pavilion 500-210qe | Intel i5-4530  | 6.0 GBytes  | 1.0 TBytes |            NULL |
+|       9871267 | HP   | Pavilion 500-210qe | Intel i5-4530  | 6.0 GBytes  | 1.0 TBytes |            NULL |
+|       9871278 | HP   | Pavilion 500-210qe | Intel i5-4530  | 6.0 GBytes  | 1.0 TBytes |            NULL |
++---------------+------+--------------------+----------------+-------------+------------+-----------------+
+5 rows in set (0.00 sec)
+
+--------------
+ /* Query 5 */
+DESC COMPUTER
+--------------
+
++-----------------+--------------+------+-----+---------+-------+
+| Field           | Type         | Null | Key | Default | Extra |
++-----------------+--------------+------+-----+---------+-------+
+| serial_number   | int(7)       | NO   | PRI | NULL    |       |
+| make            | varchar(50)  | YES  |     | NULL    |       |
+| model           | varchar(50)  | YES  |     | NULL    |       |
+| processor_type  | varchar(50)  | YES  |     | NULL    |       |
+| memory_type     | varchar(50)  | YES  |     | NULL    |       |
+| disk_size       | varchar(50)  | YES  |     | NULL    |       |
+| processor_speed | decimal(5,2) | YES  |     | NULL    |       |
++-----------------+--------------+------+-----+---------+-------+
+7 rows in set (0.00 sec)
+
+--------------
+/* Query 6*/
+ALTER TABLE COMPUTER
+DROP COLUMN processor_speed
+--------------
+
+Query OK, 0 rows affected (0.01 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+--------------
+/* Query 7 */
+RENAME TABLE COMPUTER
+TO COMPUTER_BACKUP
+--------------
+
+Query OK, 0 rows affected (0.00 sec)
+
+--------------
+/* Query 8 */
+SHOW TABLES
+--------------
+
++-------------------+
+| Tables_in_library |
++-------------------+
+| COMPUTER_BACKUP   |
+| author            |
+| bookauthor        |
+| bookcopies        |
+| bookloans         |
+| books             |
+| borrower          |
+| branch            |
+| categories        |
+| publisher         |
++-------------------+
+10 rows in set (0.00 sec)
+
+--------------
+/* Query 9 */
+DROP TABLE IF EXISTS COMPUTER_BACKUP
+--------------
+
+Query OK, 0 rows affected (0.00 sec)
+
+--------------
+SHOW TABLES
+--------------
+
++-------------------+
+| Tables_in_library |
++-------------------+
+| author            |
+| bookauthor        |
+| bookcopies        |
+| bookloans         |
+| books             |
+| borrower          |
+| branch            |
+| categories        |
+| publisher         |
++-------------------+
+9 rows in set (0.00 sec)
+
+--------------
+/* Query 10 */
+ALTER TABLE branch
+ADD phone_number INT(10)
+--------------
+
+Query OK, 0 rows affected (0.01 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+--------------
+/* Query 11 */
+ALTER TABLE branch
+DROP COLUMN phone_number
+--------------
+
+Query OK, 0 rows affected (0.01 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+MariaDB [(none)]> tee /Users/jasondurant/Desktop/my_scripts/jdurant_assignment3.txt

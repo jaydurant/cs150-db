@@ -1,0 +1,428 @@
+MariaDB [(none)]> source /Users/jasondurant/Desktop/my_scripts/jdurant_assignment3.sql
+--------------
+/* Assignment 3.sql 
+  Jason Durant
+   CS 150A, Fall 2018
+*/
+
+/* put the database name into this command */
+USE university
+--------------
+
+Query OK, 0 rows affected (0.00 sec)
+
+--------------
+/* Query 0 */
+SELECT user(), current_date()
+--------------
+
++----------------+----------------+
+| user()         | current_date() |
++----------------+----------------+
+| root@localhost | 2018-09-14     |
++----------------+----------------+
+1 row in set (0.00 sec)
+
+--------------
+/* Query 1 */
+SELECT student_id 
+, first_name
+, last_name
+, student.dept_id
+, tot_cred
+FROM student 
+JOIN dept ON dept.dept_id = student.dept_id
+WHERE dept.dept_id IN (1,3)
+--------------
+
++------------+------------+-----------+---------+----------+
+| student_id | first_name | last_name | dept_id | tot_cred |
++------------+------------+-----------+---------+----------+
+| 14182      | Moszkowski | Jacob     | 1       |       73 |
+| 98056      | Di         | Luke      | 1       |       81 |
+| 98619      | Nagaraj    | Brook     | 1       |       61 |
+| 24746      | Scott      | Harry     | 3       |        4 |
+| 35175      | Quimby     | Max       | 3       |        4 |
++------------+------------+-----------+---------+----------+
+5 rows in set (0.00 sec)
+
+--------------
+/* Query 2 */
+SELECT faculty_id
+, Title
+, Status
+FROM Faculty
+WHERE Title = 'Associate Professor'
+AND Status = 'Full Time'
+--------------
+
++------------+---------------------+-----------+
+| faculty_id | Title               | Status    |
++------------+---------------------+-----------+
+| 31955      | Associate Professor | Full Time |
+| 37687      | Associate Professor | Full Time |
+| 41930      | Associate Professor | Full Time |
+| 59795      | Associate Professor | Full Time |
+| 63287      | Associate Professor | Full Time |
+| 65931      | Associate Professor | Full Time |
+| 73623      | Associate Professor | Full Time |
+| 74426      | Associate Professor | Full Time |
+| 78699      | Associate Professor | Full Time |
++------------+---------------------+-----------+
+9 rows in set (0.00 sec)
+
+--------------
+/* Query 3 */
+SELECT staff_id
+, last_name
+, salary 
+FROM staff
+WHERE last_name LIKE 'C%'
+--------------
+
++----------+-----------+----------+
+| staff_id | last_name | salary   |
++----------+-----------+----------+
+| 34175    | Coie      | 52000.00 |
+| 36897    | Cameron   | 85000.00 |
+| 63287    | Calvin    | 78000.00 |
+| 74426    | Coie      | 52000.00 |
++----------+-----------+----------+
+4 rows in set (0.00 sec)
+
+--------------
+/* Query 4 */
+SELECT *
+FROM staff
+WHERE salary BETWEEN 50000 AND 70000
+--------------
+
++----------+------------+------------+-------------------------+--------------+-------+----------+--------------+----------+------------+----------+
+| staff_id | first_name | last_name  | address                 | city         | state | zip_code | phone_number | salary   | date_hired | Position |
++----------+------------+------------+-------------------------+--------------+-------+----------+--------------+----------+------------+----------+
+| 14365    | Joyce      | Bonnicksen | 2424 Thames Drive       | Bellevue     | WA    | 98006    | 555-2726     | 60000.00 | 1992-03-02 | Faculty  |
+| 16807    | Michael    | Hernandez  | PO Box 223311           | Tacoma       | WA    | 98413    | 555-2711     | 60000.00 | 1992-08-20 | Faculty  |
+| 19368    | Sean       | Smith      | 2314 Foothill Ave.      | Fremont      | CA    | 94538    | 510-2596     | 52000.00 | 1993-10-06 | Faculty  |
+| 28097    | Kean       | Bonny      | 2423 Thames Drive       | Newark       | CA    | 94006    | 650-4726     | 60000.00 | 1992-03-02 | Faculty  |
+| 31955    | Jim        | Wilson     | 101 NE 88th             | Salem        | OR    | 97301    | 555-006      | 50000.00 | 1992-01-13 | Faculty  |
+| 3199     | Levine     | Jackson    | 323 Cheyenne Ave        | Union City   | CA    | 94993    | 415-2291     | 56000.00 | 1994-08-17 | Faculty  |
+| 3335     | Erick      | Kennedy    | 455 East Palm Ave       | San Antonio  | CA    | 94284    | 555-4242     | 56000.00 | 1991-03-02 | Faculty  |
+| 34175    | Caroline   | Coie       | 298 Forest Lane         | Seattle      | WA    | 98125    | 555-2886     | 52000.00 | 1991-01-28 | Faculty  |
+| 35579    | Sam        | Abolrous   | 611 Alpine Drive        | Palm Springs | CA    | 92263    | 555-3311     | 60000.00 | 1991-11-20 | Faculty  |
+| 37687    | David      | Smith      | 311 20th Ave. N.E.      | Fremont      | CA    | 94538    | 555-2996     | 52000.00 | 1991-11-17 | Faculty  |
+| 4034     | Robert     | Brown      | 672 Lamont Ave          | Houston      | TX    | 77201    | 555-2491     | 56000.00 | 1995-02-09 | Faculty  |
+| 43779    | Samy       | Jamie      | 699 Alpine Drive        | Fremont      | CA    | 94263    | 650-2611     | 60000.00 | 1991-11-20 | Faculty  |
+| 48507    | Max        | Isaac      | 5432 Cheyenne Road      | El Paso      | TX    | 79993    | 555-4545     | 66000.00 | 1992-08-20 | Faculty  |
+| 48570    | Alex       | Sarkar     | 4444 Welsh Road         | Long Beach   | CA    | 90809    | 555-9494     | 65000.00 | 2000-02-10 | Faculty  |
+| 73623    | Carol      | Viescas    | 722 Moss Bay Blvd.      | Kirkland     | WA    | 98033    | 555-2006     | 50000.00 | 1990-05-12 | Faculty  |
+| 74426    | Caroline   | Coie       | 298 Forest Lane         | Seattle      | WA    | 98125    | 650-2306     | 52000.00 | 1991-01-28 | Faculty  |
+| 77346    | Mahmoud    | Helal      | PO Box 2223             | Dublin       | CA    | 90413    | 650-3711     | 60000.00 | 1993-08-20 | Faculty  |
+| 78699    | Gary       | Hallmark   | Route 2, Box 203B       | Auburn       | WA    | 98002    | 555-2879     | 53000.00 | 1993-01-21 | Faculty  |
+| 79081    | Maria      | Lane       | 3321 Clever Road        | El Paso      | CA    | 79993    | 650-2391     | 68000.00 | 1991-09-17 | Faculty  |
+| 79653    | Peter      | Brehm      | 722 Moss Bay Blvd.      | Kirkland     | WA    | 98033    | 555-2321     | 60000.00 | 1993-07-16 | Faculty  |
+| 95030    | Alastair   | Black      | 3887 Easy Street        | Seattle      | WA    | 98125    | 555-5539     | 60000.00 | 1995-12-11 | Faculty  |
+| 96895    | Jeffrey    | Smith      | 30301 - 166th Ave. N.E. | Fremont      | CA    | 94538    | 555-3496     | 52000.00 | 1990-10-06 | Faculty  |
+| 97302    | Alaina     | Hallmark   | Route 2, Box 203B       | Woodinville  | WA    | 98072    | 555-2231     | 57000.00 | 1990-01-15 | Faculty  |
++----------+------------+------------+-------------------------+--------------+-------+----------+--------------+----------+------------+----------+
+23 rows in set (0.00 sec)
+
+--------------
+/* Query 5 */
+SELECT  course_id
+, sec_id
+, semester
+, year
+, building
+, room_number 
+FROM section
+WHERE semester = 'Fall' AND year = 2015
+LIMIT 40
+--------------
+
++-----------+--------+----------+------+-----------+-------------+
+| course_id | sec_id | semester | year | building  | room_number |
++-----------+--------+----------+------+-----------+-------------+
+| 105       | 1      | Fall     | 2015 | Chandler  | 375         |
+| 237       | 2      | Fall     | 2015 | Fairchild | 145         |
+| 242       | 1      | Fall     | 2015 | Fairchild | 145         |
+| 468       | 1      | Fall     | 2015 | Lambeau   | 348         |
+| 960       | 1      | Fall     | 2015 | Lamberton | 134         |
+| 304       | 1      | Fall     | 2015 | Lamberton | 143         |
+| 362       | 1      | Fall     | 2015 | Lamberton | 143         |
+| 366       | 1      | Fall     | 2015 | Saucon    | 844         |
+| 334       | 1      | Fall     | 2015 | Taylor    | 812         |
+| 486       | 1      | Fall     | 2015 | Whitman   | 134         |
+| 482       | 1      | Fall     | 2015 | Whitman   | 434         |
++-----------+--------+----------+------+-----------+-------------+
+11 rows in set (0.00 sec)
+
+--------------
+/* Query 6 */
+SELECT * 
+FROM dept
+WHERE building LIKE '%Palm%'
+--------------
+
++---------+-----------+----------+-----------+
+| dept_id | dept_name | building | budget    |
++---------+-----------+----------+-----------+
+| 12      | Geology   | Palmer   | 406557.93 |
+| 7       | English   | Palmer   | 611042.66 |
++---------+-----------+----------+-----------+
+2 rows in set (0.00 sec)
+
+--------------
+/* Query 7 */
+SELECT reg.student_id  AS student_id
+, reg.course_id AS course_id
+, reg.sec_id AS sec_id
+, reg.semester AS semester
+, reg.year AS year
+, reg.grade AS grade
+FROM student
+JOIN registration AS reg ON reg.student_id = student.student_id
+WHERE reg.grade IS NULL
+--------------
+
+Empty set (0.00 sec)
+
+--------------
+/* Query 8 */
+SELECT course_id
+, title 
+FROM course
+WHERE title LIKE 'Intro%'
+--------------
+
++-----------+--------------------------+
+| course_id | title                    |
++-----------+--------------------------+
+| 804       | Introduction to Burglary |
++-----------+--------------------------+
+1 row in set (0.00 sec)
+
+--------------
+/* Query 9 */
+SELECT course_id AS 'course id'
+, sec_id AS 'section id'
+, year
+, building
+FROM section
+WHERE semester = 'Fall'
+--------------
+
++-----------+------------+------+-----------+
+| course id | section id | year | building  |
++-----------+------------+------+-----------+
+| 694       | 1          | 2012 | Alumni    |
+| 362       | 2          | 2016 | Alumni    |
+| 105       | 1          | 2015 | Chandler  |
+| 200       | 2          | 2012 | Chandler  |
+| 313       | 1          | 2014 | Chandler  |
+| 169       | 2          | 2012 | Drown     |
+| 476       | 1          | 2014 | Drown     |
+| 237       | 2          | 2015 | Fairchild |
+| 242       | 1          | 2015 | Fairchild |
+| 843       | 1          | 2014 | Fairchild |
+| 893       | 1          | 2017 | Fairchild |
+| 421       | 1          | 2014 | Gates     |
+| 468       | 1          | 2015 | Lambeau   |
+| 415       | 1          | 2014 | Lamberton |
+| 559       | 1          | 2012 | Lamberton |
+| 867       | 2          | 2014 | Lamberton |
+| 960       | 1          | 2015 | Lamberton |
+| 304       | 1          | 2015 | Lamberton |
+| 362       | 1          | 2015 | Lamberton |
+| 489       | 1          | 2017 | Lamberton |
+| 612       | 1          | 2017 | Lamberton |
+| 626       | 1          | 2016 | Lamberton |
+| 274       | 1          | 2012 | Main      |
+| 400       | 2          | 2013 | Main      |
+| 461       | 1          | 2012 | Main      |
+| 258       | 1          | 2017 | Main      |
+| 561       | 1          | 2016 | Main      |
+| 192       | 1          | 2012 | Polya     |
+| 808       | 1          | 2013 | Polya     |
+| 974       | 1          | 2013 | Polya     |
+| 376       | 1          | 2016 | Power     |
+| 468       | 2          | 2017 | Power     |
+| 960       | 2          | 2016 | Power     |
+| 527       | 1          | 2014 | Saucon    |
+| 642       | 1          | 2014 | Saucon    |
+| 401       | 1          | 2013 | Saucon    |
+| 545       | 1          | 2011 | Saucon    |
+| 748       | 1          | 2013 | Saucon    |
+| 927       | 1          | 2012 | Saucon    |
+| 949       | 1          | 2017 | Saucon    |
+| 959       | 1          | 2016 | Saucon    |
+| 366       | 1          | 2015 | Saucon    |
+| 105       | 2          | 2012 | Taylor    |
+| 239       | 1          | 2016 | Taylor    |
+| 867       | 1          | 2016 | Taylor    |
+| 334       | 1          | 2015 | Taylor    |
+| 496       | 1          | 2011 | Taylor    |
+| 603       | 1          | 2013 | Taylor    |
+| 486       | 1          | 2015 | Whitman   |
+| 158       | 1          | 2017 | Whitman   |
+| 482       | 1          | 2015 | Whitman   |
++-----------+------------+------+-----------+
+51 rows in set (0.00 sec)
+
+--------------
+/*  Query 10 */
+SELECT building,
+room_number,
+capacity 
+FROM classroom
+WHERE capacity BETWEEN 30 AND 70
+--------------
+
++----------+-------------+----------+
+| building | room_number | capacity |
++----------+-------------+----------+
+| Alumni   | 143         |       47 |
+| Garfield | 119         |       59 |
+| Gates    | 707         |       65 |
+| Grace    | 40          |       34 |
+| Lambeau  | 348         |       51 |
+| Main     | 45          |       30 |
+| Rathbone | 261         |       60 |
+| Whitman  | 434         |       32 |
++----------+-------------+----------+
+8 rows in set (0.00 sec)
+
+--------------
+/* Query 11 */
+SELECT * 
+FROM classroom
+WHERE capacity > 30 AND building = 'Taylor'
+--------------
+
++----------+-------------+----------+
+| building | room_number | capacity |
++----------+-------------+----------+
+| Taylor   | 183         |       71 |
+| Taylor   | 812         |      115 |
++----------+-------------+----------+
+2 rows in set (0.00 sec)
+
+--------------
+/* Query 12 */
+SELECT last_name
+, dept_id 
+FROM student
+WHERE NOT (last_name = 'Evan' OR last_name = 'William')
+--------------
+
++-----------+---------+
+| last_name | dept_id |
++-----------+---------+
+| Jacob     | 1       |
+| Billy     | 17      |
+| Conner    | 2       |
+| David     | 9       |
+| Dexter    | 13      |
+| Henry     | 18      |
+| Harry     | 3       |
+| Jake      | 5       |
+| Lewis     | 18      |
+| Sam       | 10      |
+| Max       | 3       |
+| Dylan     | 19      |
+| Cody      | 10      |
+| Nathan    | 16      |
+| Taylor    | 5       |
+| Bobby     | 17      |
+| Sam       | 17      |
+| George    | 7       |
+| Arthur    | 12      |
+| Andy      | 13      |
+| James     | 2       |
+| Spencer   | 12      |
+| Blake     | 13      |
+| Adam      | 14      |
+| Hayden    | 16      |
+| Samuel    | 14      |
+| Rory      | 20      |
+| Michael   | 12      |
+| Jenson    | 6       |
+| Jackson   | 15      |
+| Zac       | 19      |
+| Aaron     | 18      |
+| Jamie     | 4       |
+| Sonny     | 12      |
+| Bailey    | 20      |
+| Harvey    | 9       |
+| Edward    | 17      |
+| Ryan      | 2       |
+| Kian      | 17      |
+| Frankie   | 10      |
+| Freddie   | 19      |
+| Toby      | 8       |
+| Charlie   | 16      |
+| Maged     | 15      |
+| Leo       | 5       |
+| Jack      | 11      |
+| Benjamin  | 10      |
+| Jude      | 8       |
+| Brown     | 13      |
+| Adrian    | 10      |
+| Ben       | 11      |
+| Ryan      | 13      |
+| Ryan      | 6       |
+| Daniel    | 18      |
+| Alexander | 19      |
+| Isaac     | 4       |
+| Thomas    | 13      |
+| Oscar     | 17      |
+| Luke      | 1       |
+| Brook     | 1       |
+| Joseph    | 5       |
++-----------+---------+
+61 rows in set (0.00 sec)
+
+--------------
+/* Query 13 */
+SELECT first_name
+, last_name
+FROM staff
+WHERE date_hired BETWEEN '1990-01-01' AND '1990-12-31'
+--------------
+
++------------+-----------+
+| first_name | last_name |
++------------+-----------+
+| Jim        | Glynn     |
+| Deb        | Waldal    |
+| Kathryn    | Patterson |
+| Frankie    | Morgan    |
+| Carol      | Viescas   |
+| Katherine  | Ehrlich   |
+| Jeffrey    | Smith     |
+| Alaina     | Hallmark  |
++------------+-----------+
+8 rows in set (0.00 sec)
+
+--------------
+/* Query 14 */
+SELECT last_name
+, first_name
+, dept_id 
+FROM student
+WHERE last_name LIKE '_o%'
+--------------
+
++-----------+------------+---------+
+| last_name | first_name | dept_id |
++-----------+------------+---------+
+| Conner    | Pearlman   | 2       |
+| Cody      | Norman     | 10      |
+| Bobby     | Maria      | 17      |
+| Rory      | Paul       | 20      |
+| Sonny     | Soni       | 12      |
+| Toby      | Amy        | 8       |
+| Joseph    | Hawthorne  | 5       |
++-----------+------------+---------+
+7 rows in set (0.00 sec)
+
+MariaDB [(none)]> 
